@@ -15,7 +15,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+}
+.container > * {
+    margin-bottom: 40px;
 }
 .logo {
     object-fit: contain;
