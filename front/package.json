@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf ../api/front && react-scripts build && mv build ../api/front",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

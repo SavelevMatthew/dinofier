@@ -1,5 +1,5 @@
 import re
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from predictor import get_predictions
 from flask_cors import CORS, cross_origin
 import os
@@ -10,14 +10,21 @@ DEFAULT_AMOUNT = 5
 DEFAULT_TOP = 5
 MAX_TOP = 27
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='front')
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-@app.route('/')
-def index():
-    return 'Hello, world!'
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    print('PATH')
+    print(path)
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        print(app.static_folder)
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/api/predict', methods=['POST'])
