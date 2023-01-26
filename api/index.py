@@ -1,6 +1,8 @@
 import re
 from flask import Flask, request
 from predictor import get_predictions
+from flask_cors import CORS, cross_origin
+import os
 
 PREFIX_REGEX = r'^[a-zA-Z]+$'
 MAX_AMOUNT = 10
@@ -9,6 +11,8 @@ DEFAULT_TOP = 5
 MAX_TOP = 27
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/')
@@ -17,6 +21,7 @@ def index():
 
 
 @app.route('/api/predict', methods=['POST'])
+@cross_origin()
 def predict():
     prefix = request.args.get('prefix')
     if prefix is not None and not re.match(PREFIX_REGEX, prefix):
