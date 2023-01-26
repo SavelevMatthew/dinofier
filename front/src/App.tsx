@@ -20,7 +20,9 @@ import {Dices, Settings2} from "lucide-react";
 import get from 'lodash/get'
 
 
-const API_URL = 'http://127.0.0.1:5000/api/predict'
+const API_URL = process.env.NODE_ENV === 'development'
+    ? 'http://127.0.0.1:5000/api/predict'
+    : window.location.origin + '/api/predict'
 
 function App() {
   const [amount, setAmount] = useState(5)
@@ -90,7 +92,7 @@ function App() {
       setNames(result)
 
     } catch (err) {
-      notification.error({ message: get(err, 'message', 'Failed to fetch') })
+      notification.error({ message: get(err, 'message') || 'Failed to fetch' })
     } finally {
       setLoading(false)
     }
@@ -152,13 +154,15 @@ function App() {
           </Row>
         </Col>
         <Col span={24}>
-          <Card>
-            <Space direction={"vertical"} size={16}>
-              {names.map((name, idx) => (
-                  <Typography.Text style={{ fontSize: 20 }} key={idx}>{name}</Typography.Text>
-              ))}
-            </Space>
-          </Card>
+          {Boolean(names.length) && (
+              <Card>
+                <Space direction={"vertical"} size={16}>
+                  {names.map((name, idx) => (
+                      <Typography.Text style={{ fontSize: 20 }} key={idx}>{name}</Typography.Text>
+                  ))}
+                </Space>
+              </Card>
+          )}
         </Col>
       </Row>
       <Modal
