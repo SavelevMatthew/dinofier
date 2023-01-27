@@ -2,4 +2,4 @@ Flask
 Flask-Cors
 torch
 gunicorn
-
+numpy
