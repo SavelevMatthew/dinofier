@@ -19,7 +19,7 @@ def get_starter(prefix):
     if not prefix:
         return [random.choice(range(len(chars) - 1)) + 1]
     else:
-        return [ch_to_idx.get(ch, 1) for ch in prefix]
+        return [ch_to_idx.get(ch, 1) for ch in prefix.lower()]
 
 
 def generate_next(x, prev_state, top_k, uniform):
