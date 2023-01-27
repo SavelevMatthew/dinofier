@@ -3,6 +3,9 @@ from flask import Flask, request, send_from_directory
 from predictor import get_predictions
 from flask_cors import CORS, cross_origin
 import os
+import torch
+
+torch.set_num_threads(1)
 
 PREFIX_REGEX = r'^[a-zA-Z]+$'
 MAX_AMOUNT = 10

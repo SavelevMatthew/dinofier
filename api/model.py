@@ -1,6 +1,4 @@
-import torch
 from torch import nn
-torch.set_num_threads(1)
 
 
 class LSTMModel(nn.Module):
