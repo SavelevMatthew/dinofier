@@ -6,7 +6,7 @@ from model import LSTMModel
 from torch.functional import F
 
 model = LSTMModel(27, 128, 16, 2, 0.2)
-model.load_state_dict(torch.load('api/model.pt'))
+model.load_state_dict(torch.load('model.pt'))
 model.eval()
 
 EOS = '<EOS>'
